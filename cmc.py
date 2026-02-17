@@ -1,41 +1,58 @@
 import streamlit as st
-from datetime import date, time
-
-st.title("Calculateur d'Indice de Masse Corporelle (IMC)")
-
-st.image("imc.png")
-
-st.markdown("""
-Cette application vous permet de calculer votre imc.
-""")
 
 
-st.subheader("Entrer vos informations")
+st.set_page_config(page_title="Calculateur IMC", page_icon="calculatrice de l'imc")
 
 
-poids = st.number_input("Veuillez entrer votre poids (kg) :", min_value=1.0, value=100.0, step=0.1)
-taille = st.number_input("Veuillez entrer votre taille (m) :", min_value=0.5, value=1.40, step=0.01)
+st.title("Calculatrice d'IMC")
+
+st.write("Cette application permet de calculer votre **Indice de Masse Corporelle (IMC)**.")
+
+
+st.markdown("---")
+
+
+col1, col2 = st.columns(2)
+
+with col1:
+   
+    poids = st.number_input("Donner votre poids (kg)", min_value=0.0, step=0.1, format="%.2f")
+
+with col2:
+    
+    taille = st.number_input("Donner votre taille (m)", min_value=0.0, step=0.01, format="%.2f")
+
 
 if st.button("Calculer mon IMC"):
     if taille > 0:
+        
         imc = poids / (taille ** 2)
         
         
-        st.write(F"Résultat du calcul pour le ")
+        st.subheader(f"Votre IMC=: {imc:.2f}")
         
-
-        if 18.5 >= imc < 25:
-            st.success("Normal")
-        
-        elif imc < 18.5:
-            st.info("Maigre")
-            
-        elif 25 >= imc < 30:
-            st.info("Surpoids")
-      
-        else:
-            st.warning("Ob")
-            
        
+        if imc < 18.5:
+            st.info("Insuffisance pondérale (Maigreur)")
+        elif 18.5 <= imc < 25:
+            st.success("Poids normal")
+        elif 25 <= imc < 30:
+            st.warning("Surpoids")
+        else:
+            st.error("Obésité") 
+            
     else:
-        st.error("La taille doit être supérieure à zéro.")
+        
+        st.warning("« Veuillez remplir les informations »")
+
+
+with st.sidebar:
+    st.image("imc.png")
+    st.header("À propos")
+    st.markdown("""
+    L'IMC est un indicateur standardisé utilisé par l'OMS :
+    - **< 18.5** : Maigreur
+    - **18.5 - 25** : Normal
+    - **25 - 30** : Surpoids
+    - **> 30** : Obésité
+    """)
