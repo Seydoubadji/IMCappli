@@ -23,14 +23,18 @@ if st.button("Calculer mon IMC"):
         
         st.write(F"Résultat du calcul pour le ")
         
-
-       if imc < 18.5:
-            st.info("Catégorie : Maigreur")
-        elif 18.5 <= imc < 25:
-            st.success("Catégorie : Corpulence normale")
-        elif 25 <= imc < 30:
-            st.warning("Catégorie : Surpoids")
+    if 18.5 >= imc < 25:
+            st.success("Normal")
+        
+        elif imc < 18.5:
+            st.info("Maigre")
+            
+        elif 25 >= imc < 30:
+            st.info("Surpoids")
+      
         else:
-            st.error("Catégorie : Obésité")
+            st.warning("Ob")
+            
+       
     else:
         st.error("La taille doit être supérieure à zéro.")
