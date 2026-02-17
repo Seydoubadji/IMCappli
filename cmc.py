@@ -23,7 +23,8 @@ if st.button("Calculer mon IMC"):
         
         st.write(F"Résultat du calcul pour le ")
         
-    if 18.5 >= imc < 25:
+
+        if 18.5 >= imc < 25:
             st.success("Normal")
         
         elif imc < 18.5:
